@@ -63,22 +63,28 @@ int main()
 
 
 
-    // Creating LSM object
+    // Point coordinates (x1,y1,x2,y2...xn,yn)
     std::vector<double> Points = { -0.5, 0.8, -0.2, 0.3, -0.9, 0.6, -0.4, 0.1, 0.7, -0.6, -1, -0.8, 0.2, 1, 1, 1 };
     //std::vector<double> Points = { 0.7, -0.6, -1, -0.8, 0.2, 1, 1, 1 };
 
+    // Interpolation pipeline
+    // First find a polynomial expression
     LSM regression(Points, Points.size()/2);
     regression.printCoefficients();
     std::cout << "Polynomial Equation: " << regression.polynomialString() << std::endl;
+    
+    // Then give this polynomial expression as a string to the print to file function
     PrintFunction printer(regression.polynomialString());
     
-    
+    // This basically just finds the value of y n times between -1 and 1, and outputs it to a text file
     printer.generateCoordinates(100, "coordinates.txt");
+    
+    // Then this class takes the coordinates on the text file and pairs them with some standard values for zrgb to be drawn
     GenGraph GraphGen;
     std::string filename = "coordinates.txt";
     GraphGen.readPointsFromFile(filename);
 
-
+    // This takes the original points and gives them default zrgb values just like the last one, but this time straight from the vector
     GenDots DotGen;
     DotGen.GenDotCords(Points);
 
@@ -129,7 +135,7 @@ int main()
         processInput(window);
 
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderProgram.Activate();

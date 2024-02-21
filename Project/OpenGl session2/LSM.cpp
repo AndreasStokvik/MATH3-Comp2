@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <iostream>
 
-// Constructor
 LSM::LSM(const std::vector<double>& xy, int degree) {
     coefficients = leastSquaresMethod(xy, degree);
 }
@@ -24,7 +23,7 @@ std::vector<double> LSM::leastSquaresMethod(const std::vector<double>& xy, int d
         y.push_back(xy[2 * i + 1]);
     }
 
-    // Calculate the sums of powers of x
+    // Calculate sums of powers of x
     for (int i = 0; i < 2 * degree + 1; ++i) {
         for (int j = 0; j < n; ++j) {
             sumX[i] += pow(x[j], i);
@@ -38,7 +37,7 @@ std::vector<double> LSM::leastSquaresMethod(const std::vector<double>& xy, int d
         }
     }
 
-    // Create the normal equations matrix
+    // Creating normal equations matrix
     std::vector<std::vector<double>> A(degree + 1, std::vector<double>(degree + 1, 0.0));
     for (int i = 0; i < degree + 1; ++i) {
         for (int j = 0; j < degree + 1; ++j) {
@@ -46,7 +45,7 @@ std::vector<double> LSM::leastSquaresMethod(const std::vector<double>& xy, int d
         }
     }
 
-    // Solve the equations
+    // Solves equations
     for (int i = 0; i < degree + 1; ++i) {
         for (int j = i + 1; j < degree + 1; ++j) {
             double ratio = A[j][i] / A[i][i];
@@ -57,7 +56,6 @@ std::vector<double> LSM::leastSquaresMethod(const std::vector<double>& xy, int d
         }
     }
 
-    // Back substitution
     coefficients[degree] = sumY[degree] / A[degree][degree];
     for (int i = degree - 1; i >= 0; --i) {
         double sum = 0.0;
@@ -93,7 +91,7 @@ std::string LSM::polynomialString() {
     return ss.str();
 }
 
-// Function to print coefficients
+// Print coefficients
 void LSM::printCoefficients() {
     std::cout << "Coefficients: ";
     for (double coefficient : coefficients) {
