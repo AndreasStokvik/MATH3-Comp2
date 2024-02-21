@@ -1,0 +1,3 @@
+﻿  OpenGl session2.cpp
+C:\Users\andre\Documents\GitHub\OpenGLsession6\OpenGl session 5\OpenGl session2\OpenGl session2.cpp(86,41): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  OpenGl session2.vcxproj -> C:\Users\andre\Documents\GitHub\OpenGLsession6\OpenGl session 5\x64\Debug\OpenGl session2.exe
